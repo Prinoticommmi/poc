@@ -92,13 +92,13 @@ async def ricevi_messaggio(data):
     """
     
     # Qui puoi aggiungere la tua logica (es. salvare su database)
-    print(f"Messaggio ricevuto da {data.utente}: {data.messaggio}")
+    # Reference the agent to get a response
+    print("Requesting response from agent...")
+    response = openai_client.responses.create(
+        input=[{"role": "user", "content": f"L'utente {data.utente} ha effettuato la seguente questa richiesta {data.req}"}],
+        extra_body={"agent": {"name": agent.name, "type": "agent_reference"}},
+    )
 
-    # Risposta al client
     return {
-        "esito": "successo",
-        "dettagli": {
-            "utente_ricevuto": dati.utente,
-            "lunghezza_messaggio": len(dati.messaggio)
+        "message": response.output_text
         }
-    }
