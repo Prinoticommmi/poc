@@ -74,13 +74,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    # Reference the agent to get a response
-    print("Requesting response from agent...")
-    response = openai_client.responses.create(
-        input=[{"role": "user", "content": "mi dai i cavi di rame?"}],
-        extra_body={"agent": {"name": agent.name, "type": "agent_reference"}},
-    )
-    return {"message": response.output_text}
+    return {"message": "online"}
 
 @app.get("/message/{message}")
 def read_item(item_id: int, q: Optional[str] = None):
