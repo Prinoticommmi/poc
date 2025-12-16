@@ -62,7 +62,9 @@ def get_credential():
 
 
 
-
+class DatiInput(BaseModel):
+    utente: str
+    messaggio: str
 
 
 
@@ -85,7 +87,7 @@ def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
 @app.post("/send-req")
-async def ricevi_messaggio(data):
+async def ricevi_messaggio(data: DatiInput):
     """
     Questo endpoint riceve un oggetto JSON, lo elabora 
     e restituisce una conferma.
@@ -95,7 +97,7 @@ async def ricevi_messaggio(data):
     # Reference the agent to get a response
     print("Requesting response from agent...")
     response = openai_client.responses.create(
-        input=[{"role": "user", "content": f"L'utente {data.utente} ha effettuato la seguente questa richiesta {data.req}"}],
+        input=[{"role": "user", "content": f"L'utente {data.utente} ha effettuato la seguente questa richiesta {data.messaggio}"}],
         extra_body={"agent": {"name": agent.name, "type": "agent_reference"}},
     )
 
