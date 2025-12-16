@@ -2,4 +2,4 @@ fastapi[all]
 fastapi[all]
 azure-ai-projects>=2.0.0b1
 azure-identity
-openapi
+openai
